@@ -16,7 +16,7 @@ void init_player(int width, int height) {
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window SDL: %s", SDL_GetError());
 		return;
 	}
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (renderer == NULL) {
 
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create renderer SDL: %s", SDL_GetError());
@@ -24,7 +24,7 @@ void init_player(int width, int height) {
 	}
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderPresent(renderer);
-	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, width, height);
+	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STATIC, width, height);
 	return;
 }
 
