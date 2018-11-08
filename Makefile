@@ -1,8 +1,9 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Ofast
-LDFLAGS= -lv4l2
+LDFLAGS=
+LIB=-lv4l2 -lSDL2
 
-SOURCES=capture.c main.c
+SOURCES=capture.c player.c main.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=rawcam
 
