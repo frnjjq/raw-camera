@@ -3,11 +3,10 @@ Demonstation of the minimum lag from glass to glass using a bayer raw camera(See
 
 ## Dependencies
 * SDL 2
-* OpenMP
 * v4l2
 
 ## Compiling Ubuntu
-1. Install libraries. In Ubuntu `sudo apt-get install libv4l-dev libsdl2-dev libomp-dev`
+1. Install libraries. In Ubuntu `sudo apt-get install libv4l-dev libsdl2-dev`
 2. Get to the directory and run `make`
 3. The binary is located in the same folder. The name is rawcam.
 

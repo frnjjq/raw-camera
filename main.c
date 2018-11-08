@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <stdlib.h>
-#include <omp.h>
 
 #include "capture.h"
 #include "player.h"
@@ -33,8 +32,6 @@ int main()
 void  raw_to_shitty_rgb(uint8_t *rgb_data, uint8_t *raw_data, int width, int height)
 {
     uint8_t r,g,b;
-
-    #pragma omp parallel for
     for (int y = 0; y< height; y++)
     {
         for (int x = 0; x< width; x++)
@@ -67,8 +64,6 @@ void  raw_to_shitty_rgb(uint8_t *rgb_data, uint8_t *raw_data, int width, int hei
 void  raw_to_rgb(uint8_t *rgb_data, uint8_t *raw_data, int width, int height)
 {
     uint8_t r,g,b;
-
-    #pragma omp parallel for
     for (int y = 1; y< height-1; y++)
     {
         for (int x = 1; x< width-1; x++)
