@@ -5,7 +5,7 @@
 #include "player.h"
 #include "util.c"
 
-void  raw_to_shitty_rgb(uint8_t *rgb_data, uint8_t *raw_data, int width, int height);
+void  raw_to_shitty_rgb(uint8_t * restrict rgb_data, uint8_t * restrict raw_data, int width, int height);
 void  raw_to_rgb(uint8_t *rgb_data, uint8_t *raw_data, int width, int height);
 void  raw_to_rgb_vec(uint8_t * restrict rgb_data, uint8_t * restrict raw_data, int width, int height);
 
@@ -25,7 +25,7 @@ int main()
         handle_window(&quit);
         get_frame( camera);
         //start_counting();
-        raw_to_rgb(rgb_data, camera.buffer_start, camera.width, camera.height);
+        raw_to_shitty_rgb(rgb_data, camera.buffer_start, camera.width, camera.height);
         //stop_counting();
         play_frame((void *)rgb_data, camera.width*3);
     }
@@ -33,7 +33,7 @@ int main()
     return close_camera(camera);
 }
 
-void  raw_to_shitty_rgb(uint8_t *rgb_data, uint8_t *raw_data, int width, int height)
+void  raw_to_shitty_rgb(uint8_t * restrict rgb_data, uint8_t * restrict raw_data, int width, int height)
 {
     uint8_t r,g,b;
     for (int y = 0; y< height; y++)

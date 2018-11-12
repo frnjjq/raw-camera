@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -Ofast
+CFLAGS=-Wall -Wextra -Ofast -march=native-fopt-info-vec
 LDFLAGS=
 LIB=-lv4l2 -lSDL2
 

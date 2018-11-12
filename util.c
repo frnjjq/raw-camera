@@ -14,10 +14,10 @@ inline void start_counting()
 
 inline void stop_counting()
 {
-    int deltaInUSecs;
+    unsigned long deltaInUSecs;
     gettimeofday(&end, NULL);
 
-    deltaInUSecs = (end.tv_sec - start.tv_sec)*1000000 - (end.tv_usec - start.tv_usec);
-    printf("delta in microseconds\n %u\n\n", deltaInUSecs);
+    deltaInUSecs = (end.tv_sec - start.tv_sec)*1000000 + (end.tv_usec - start.tv_usec);
+    printf("delta in microseconds %lu\n", deltaInUSecs);
     return;
 }
