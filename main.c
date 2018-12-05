@@ -9,11 +9,16 @@ void  raw_to_shitty_rgb(uint8_t * restrict rgb_data, uint8_t * restrict raw_data
 void  raw_to_rgb(uint8_t *rgb_data, uint8_t *raw_data, int width, int height);
 void  raw_to_rgb_vec(uint8_t * restrict rgb_data, uint8_t * restrict raw_data, int width, int height);
 
-//int main( int argc, const char* argv[] )
-int main()
+int main( int argc, char* argv[] )
+//int main()
 {
+    if (argc != 2)
+    {
+        printf("ERROR: Not supplied filename\n");
+        return -1;
+    }
     struct camera_data camera;
-    char filename[80] = "/dev/video0";
+    char *filename = argv[1];
     bool quit;
     uint8_t *rgb_data;
 	camera = start_camera(filename);
