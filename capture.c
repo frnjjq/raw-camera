@@ -6,6 +6,7 @@
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#include <time.h>
 
 #include "capture.h"
 
@@ -64,6 +65,7 @@ struct camera_data start_camera( char * filename)
     bufferinfo.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     bufferinfo.memory = V4L2_MEMORY_MMAP;
     bufferinfo.index = 0;
+    bufferinfo.flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC | V4L2_BUF_FLAG_TSTAMP_SRC_SOE;
     
     if(ioctl(fd, VIDIOC_QUERYBUF, &bufferinfo) < 0)
     {
@@ -95,6 +97,9 @@ struct camera_data start_camera( char * filename)
 
 void get_frame( struct camera_data camera)
 {
+    unsigned long buffer_time, process_time;
+    int status;
+    struct timespec now;
     // Put the buffer in the incoming queue.
     if(ioctl(camera.fd, VIDIOC_QBUF, &camera.bufferinfo) < 0){
         perror("VIDIOC_QBUF");
@@ -105,6 +110,13 @@ void get_frame( struct camera_data camera)
         perror("VIDIOC_QBUF");
         exit(1);
     }
+    if(clock_gettime(CLOCK_MONOTONIC, &now)){
+        perror("Get System time");
+        exit(1);        
+    }
+    process_time = now.tv_sec *1000000 + now.tv_nsec/1000;
+    buffer_time = camera.bufferinfo.timestamp.tv_sec *1000000 + camera.bufferinfo.timestamp.tv_usec;
+    printf("processing time is %lu us", process_time-buffer_time );
 }
 
 int close_camera( struct camera_data camera)
