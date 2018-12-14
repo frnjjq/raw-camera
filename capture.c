@@ -98,7 +98,6 @@ struct camera_data start_camera( char * filename)
 void get_frame( struct camera_data camera)
 {
     unsigned long buffer_time, process_time;
-    int status;
     struct timespec now;
     // Put the buffer in the incoming queue.
     if(ioctl(camera.fd, VIDIOC_QBUF, &camera.bufferinfo) < 0){
@@ -116,7 +115,7 @@ void get_frame( struct camera_data camera)
     }
     process_time = now.tv_sec *1000000 + now.tv_nsec/1000;
     buffer_time = camera.bufferinfo.timestamp.tv_sec *1000000 + camera.bufferinfo.timestamp.tv_usec;
-    printf("processing time is %lu us", process_time-buffer_time );
+    printf("processing time is %lu us\n", process_time-buffer_time );
 }
 
 int close_camera( struct camera_data camera)
